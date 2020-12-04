@@ -9,7 +9,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {SignUp} from './welcome';
+import {SignUp} from './Auth';
 
 const App = () => {
   return (
