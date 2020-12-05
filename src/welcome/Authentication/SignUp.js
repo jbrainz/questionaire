@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
 import {
   View,
   TextInput,
   StyleSheet,
   Text,
   StatusBar,
-  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -13,11 +15,11 @@ import {RectButton, BorderlessButton} from 'react-native-gesture-handler';
 import CheckBox from '../Components/CheckBox';
 import ButtonIcon from '../Components/ButtonIcon';
 
-const googleIcon = require('./assets/img/g.png');
-const facebookIcon = require('./assets/img/f.png');
+const googleIcon = require('./assets/img/google-icon.png');
+const facebookIcon = require('./assets/img/facebook-icon.png');
 
 /**
- * @param stles
+ * @param styles
  * all local styles definitions goes here.
  */
 
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
  * @param validationSchema
  * using formik for validation and email check.
  */
-const LoginSchema = Yup.object().shape({
+const SignUpSchema = Yup.object().shape({
   password: Yup.string()
     .min(6, 'Password is too short')
     .max(50, 'Too Long!')
@@ -75,54 +77,54 @@ const LoginSchema = Yup.object().shape({
  * Main component for Sign Up
  */
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   //destructuring methods and custom handlers from formik
   const {
     handleChange,
     handleBlur,
     handleSubmit,
-    touched,
     errors,
     values,
     setFieldValue,
   } = useFormik({
-    validationSchema: LoginSchema,
+    validationSchema: SignUpSchema,
     initialValues: {email: '', password: '', remember: false},
     onSubmit: () => true,
   });
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#fff',
-      }}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.text}>
-        <Text
-          style={{
-            color: '#219653',
-            fontSize: 16,
-            lineHeight: 20,
-            width: 102,
-            fontFamily: 'OpenSans-Regular',
-          }}>
-          Register now
-        </Text>
-        <Text
-          style={{
-            width: 245,
-            marginTop: 25,
-            fontWeight: '700',
-            fontFamily: 'OpenSans-Bold',
-            fontSize: 16,
-            lineHeight: 20,
-            letterSpacing: 2,
-            color: '#000000',
-          }}>
-          Sign up to continue
-        </Text>
-      </View>
-      <KeyboardAvoidingView flex={1}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} flex={1}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#fff',
+        }}>
+        <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+        <View style={styles.text}>
+          <Text
+            style={{
+              color: '#219653',
+              fontSize: 16,
+              lineHeight: 20,
+              width: 102,
+              fontFamily: 'OpenSans-Regular',
+            }}>
+            Register now
+          </Text>
+          <Text
+            style={{
+              width: 245,
+              marginTop: 25,
+              fontWeight: '700',
+              fontFamily: 'OpenSans-Bold',
+              fontSize: 16,
+              lineHeight: 20,
+              letterSpacing: 2,
+              color: '#000000',
+            }}>
+            Sign up to continue
+          </Text>
+        </View>
+
         <View style={styles.form}>
           <View
             style={{
@@ -172,7 +174,6 @@ const SignUp = () => {
               placeholderTextColor="#555555"
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
-              secureTextEntry
               autoCapitalize="none"
               autoCompleteType="password"
               onSubmitEditing={() => handleSubmit()}
@@ -218,14 +219,18 @@ const SignUp = () => {
                   marginTop={25}
                   justifyContent="center"
                   alignItems="center">
-                  <BorderlessButton onPress={() => console.log('Login')}>
+                  <BorderlessButton
+                    onPress={() =>
+                      navigation.navigate('Authentication', {
+                        screen: 'Login',
+                      })
+                    }>
                     <Text
                       marginLeft={10}
                       style={{
-                        color: '#219653',
-                        textDecorationLine: 'underline',
                         fontSize: 13,
                         fontWeight: '400',
+                        color: '#219653',
                       }}>
                       Already Have an account?
                     </Text>
@@ -262,21 +267,21 @@ const SignUp = () => {
               </View>
               <ButtonIcon
                 source={googleIcon}
-                label="Sign in with google"
+                label="Sign up with google"
                 onPress={() => console.log('true')}
               />
               <ButtonIcon
                 source={facebookIcon}
                 style={{backgroundColor: '#2F4DED'}}
                 textStyle={{color: 'white'}}
-                label="Sign in with Facebook"
+                label="Sign up with Facebook"
                 onPress={() => console.log('true')}
               />
             </View>
           </View>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
