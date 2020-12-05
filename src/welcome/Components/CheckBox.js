@@ -1,23 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {BorderlessButton} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 25,
-    height: 50,
-    width: 245,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  check: {},
-});
 /**
  *
  * @param {Checkbox} param0 Custom Checkbox handler

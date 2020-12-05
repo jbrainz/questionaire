@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
  */
 const ButtonIcon = ({onPress, label, source, style, textStyle}) => {
   return (
-    <View flex={1} marginTop={25}>
+    <View flex={1} marginTop={35}>
       <RectButton style={[styles.button, {...style}]} {...{onPress}}>
         <Text style={[styles.text, {...textStyle}]}>{label}</Text>
         <Image {...{source}} style={{width: 25, height: 25, left: 50}} />
