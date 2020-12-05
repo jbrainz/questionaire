@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -7,15 +8,26 @@
  */
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import {SignUp} from './welcome/index';
+import {AuthenticationNavigation} from './welcome/index';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <View style={{flex: 1}}>
-      <SignUp />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator headerMode="none">
+          <Stack.Screen
+            name="Authentication"
+            component={AuthenticationNavigation}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
