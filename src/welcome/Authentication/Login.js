@@ -86,6 +86,7 @@ const Login = ({navigation}) => {
     errors,
     values,
     setFieldValue,
+    touched,
   } = useFormik({
     validationSchema: LoginSchema,
     initialValues: {email: '', password: '', remember: false},
@@ -162,13 +163,13 @@ const Login = ({navigation}) => {
               autoCapitalize="none"
               returnKeyType="next"
             />
-            {errors && (
+            {errors.email && touched.email && (
               <Text
                 style={{
                   position: 'absolute',
                   left: 30,
                   right: 25,
-                  top: 245,
+                  top: 312,
                   paddingLeft: 10,
                   color: 'red',
                 }}>
@@ -197,13 +198,13 @@ const Login = ({navigation}) => {
               autoCompleteType="password"
               onSubmitEditing={handleSubmit}
             />
-            {errors && (
+            {errors.password && touched.password && (
               <Text
                 style={{
                   position: 'absolute',
                   left: 30,
                   right: 25,
-                  top: 318,
+                  top: 312,
                   paddingLeft: 10,
                   color: 'red',
                 }}>
