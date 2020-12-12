@@ -60,7 +60,9 @@ const styles = StyleSheet.create({
  * using formik for validation and email check.
  */
 const ForgotPasswordSchema = Yup.object().shape({
-  email: Yup.string().email('Please enter a valid email').required(''),
+  email: Yup.string()
+    .email('Please enter a valid email')
+    .required('This field is required'),
 });
 
 /**
@@ -70,11 +72,23 @@ const ForgotPasswordSchema = Yup.object().shape({
 
 const ForgotPassword = ({navigation}) => {
   //destructuring methods and custom handlers from formik
-  const {handleChange, handleBlur, handleSubmit, errors} = useFormik({
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    errors,
+    values,
+    touched,
+  } = useFormik({
     validationSchema: ForgotPasswordSchema,
     initialValues: {email: '', password: '', remember: false},
     onSubmit: () => true,
   });
+
+  const handleNext = () => {
+    if (!errors) {
+    }
+  };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} flex={1}>
       <View
@@ -142,12 +156,12 @@ const ForgotPassword = ({navigation}) => {
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               autoCompleteType="email"
+              value={values.email}
               autoCapitalize="none"
               returnKeyType="next"
-              required={true}
               onSubmitEditing={() => handleSubmit()}
             />
-            {errors && (
+            {errors.email && touched.email && (
               <Text
                 style={{
                   position: 'absolute',
@@ -163,7 +177,7 @@ const ForgotPassword = ({navigation}) => {
             <View style={{position: 'absolute', left: 25, right: 25, top: 348}}>
               <View flex={1} justifyContent="center" alignItems="center">
                 <RectButton
-                  onPress={() => console.log('welcome')}
+                  onPress={() => navigation.navigate('ResetPassword')}
                   rippleColor="white"
                   style={styles.button}>
                   <Text style={{color: 'white', fontFamily: 'OpenSans-Bold'}}>
