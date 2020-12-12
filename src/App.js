@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -13,6 +12,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {AuthenticationNavigation} from './welcome/index';
+import {Home} from './welcome/index';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +25,7 @@ const App = () => {
             name="Authentication"
             component={AuthenticationNavigation}
           />
+          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
