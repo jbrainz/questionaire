@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {BorderlessButton} from 'react-native-gesture-handler';
-import {CheckBox} from 'native-base';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,13 +15,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2C94C',
     opacity: 0.75,
     borderRadius: 10,
-    flexDirection: 'row',
     height: 40,
     width: 250,
     justifyContent: 'space-between',
-    padding: 5,
     alignItems: 'center',
     elevation: 10,
+    flexDirection: 'row',
+    marginBottom: 8,
   },
   rounded: {
     height: 20,
@@ -31,8 +30,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2C94C',
     borderRadius: 10,
     opacity: 0.75,
-
-    borderColor: 'transparent',
+    marginRight: 6,
+    borderColor: '#ffff',
   },
   text: {
     color: '#111111',
@@ -44,29 +43,31 @@ const styles = StyleSheet.create({
   },
 });
 
-const Answer = ({label, onPress, checked}) => {
+const Answer = ({data}) => {
+  const [active, setActive] = useState(-1);
+
+  const changeInitial = (item, index) => {
+    setActive(index);
+    console.log(item);
+  };
+
   return (
     <View style={styles.container}>
-      <BorderlessButton {...{onPress}} style={styles.buttonContainer}>
-        <Text style={styles.text}>{label}</Text>
-        <View style={styles.rounded}>
-          <CheckBox
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              borderRadius: 10,
-              borderColor: 'transparent',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            color="green"
-            {...{onPress}}
-            {...{checked}}
+      {data.map((item, index) => (
+        <BorderlessButton
+          rippleColor="transparent"
+          key={index}
+          onPress={() => changeInitial(item, index)}
+          style={styles.buttonContainer}>
+          <Text style={styles.text}>{item.answer}</Text>
+          <View
+            style={[
+              styles.rounded,
+              {backgroundColor: active === index ? 'green' : undefined},
+            ]}
           />
-        </View>
-      </BorderlessButton>
+        </BorderlessButton>
+      ))}
     </View>
   );
 };
