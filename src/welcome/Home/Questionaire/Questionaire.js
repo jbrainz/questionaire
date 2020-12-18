@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -10,8 +10,7 @@ import Answer from './components/Answer';
 import Question from './components/Questions';
 
 const styles = StyleSheet.create({
-  textContainer: {
-    height: 21,
+  container: {
     left: 20,
     top: 50,
     position: 'absolute',
@@ -24,11 +23,72 @@ const styles = StyleSheet.create({
   },
 });
 
-const Questionaire = () => {
+const Questionaire = ({navigation}) => {
+  const [select, setSelected] = useState(false);
+  const [select1, setSelected1] = useState(false);
+  const [select2, setSelected2] = useState(false);
+  const [select3, setSelected3] = useState(false);
+
+  const nextQuestion = () => {
+    if (select || select1 || select2 || select3 !== false) {
+      navigation.navigate('Profile');
+    } else {
+      alert('Please choose option');
+    }
+  };
+
+  const answers = [
+    {
+      id: 1,
+      label: 'John',
+      checked: select,
+
+      set: () => {
+        setSelected((prev) => !prev);
+        setSelected1(false);
+        setSelected2(false);
+        setSelected3(false);
+      },
+    },
+    {
+      id: 2,
+      label: 'Mathew',
+      checked: select1,
+      set: () => {
+        setSelected1((prev) => !prev);
+        setSelected(false);
+        setSelected2(false);
+        setSelected3(false);
+      },
+    },
+    {
+      id: 3,
+      label: 'Luke',
+      checked: select2,
+      set: () => {
+        setSelected2((prev) => !prev);
+        setSelected1(false);
+        setSelected(false);
+        setSelected3(false);
+      },
+    },
+    {
+      id: 4,
+      label: 'Michael',
+      checked: select3,
+      set: () => {
+        setSelected3((prev) => !prev);
+        setSelected1(false);
+        setSelected2(false);
+        setSelected(false);
+      },
+    },
+  ];
+
   const insets = useSafeAreaInsets();
   return (
     <View flex={1} style={{backgroundColor: '#fff'}}>
-      <View style={styles.textContainer}>
+      <View style={styles.container}>
         <View
           style={{
             justifyContent: 'center',
@@ -54,7 +114,6 @@ const Questionaire = () => {
         <View>
           <View marginTop={12}>
             <Question />
-
             <View
               backgroundColor="#57855F"
               style={{
@@ -65,10 +124,14 @@ const Questionaire = () => {
                 marginLeft: 25,
                 right: 25,
               }}>
-              <Answer label="Peter" />
-              <Answer label="John" />
-              <Answer label="Andrew" />
-              <Answer label="James" />
+              {answers.map((answer) => (
+                <Answer
+                  key={answer.id}
+                  checked={answer.checked}
+                  onPress={answer.set}
+                  label={answer.label}
+                />
+              ))}
             </View>
             <View
               style={{
@@ -110,7 +173,8 @@ const Questionaire = () => {
                 alignItems: 'center',
                 borderRadius: 30,
                 paddingBottom: insets.bottom,
-              }}>
+              }}
+              onPress={nextQuestion}>
               <Text
                 style={{
                   color: '#fff',

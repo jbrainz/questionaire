@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {BorderlessButton} from 'react-native-gesture-handler';
+import {CheckBox} from 'native-base';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,10 +28,11 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     borderWidth: 1,
-    borderColor: '#fff',
     backgroundColor: '#F2C94C',
     borderRadius: 10,
     opacity: 0.75,
+
+    borderColor: 'transparent',
   },
   text: {
     color: '#111111',
@@ -41,20 +43,29 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
 });
-const Answer = ({label}) => {
-  const [check, setChecked] = useState(false);
+
+const Answer = ({label, onPress, checked}) => {
   return (
     <View style={styles.container}>
-      <BorderlessButton
-        onPress={() => setChecked((prev) => !prev)}
-        style={styles.buttonContainer}>
+      <BorderlessButton {...{onPress}} style={styles.buttonContainer}>
         <Text style={styles.text}>{label}</Text>
-        <View
-          style={[
-            styles.rounded,
-            {backgroundColor: check ? 'green' : undefined},
-          ]}
-        />
+        <View style={styles.rounded}>
+          <CheckBox
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              borderRadius: 10,
+              borderColor: 'transparent',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            color="green"
+            {...{onPress}}
+            {...{checked}}
+          />
+        </View>
       </BorderlessButton>
     </View>
   );
