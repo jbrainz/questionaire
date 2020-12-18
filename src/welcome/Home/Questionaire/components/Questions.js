@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
 });
-const Questions = () => {
+const Questions = ({question}) => {
   return (
     <View marginTop={30}>
       <View style={styles.container}>
         <Text style={styles.quiz}>Which desciple was known as </Text>
-        <Text style={[styles.quiz, {marginTop: 8}]}>the beloved?</Text>
+        <Text style={[styles.quiz, {marginTop: 8}]}>{question}</Text>
       </View>
     </View>
   );
