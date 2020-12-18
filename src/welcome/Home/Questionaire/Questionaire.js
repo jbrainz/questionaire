@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -24,64 +24,21 @@ const styles = StyleSheet.create({
 });
 
 const Questionaire = ({navigation}) => {
-  const [select, setSelected] = useState(false);
-  const [select1, setSelected1] = useState(false);
-  const [select2, setSelected2] = useState(false);
-  const [select3, setSelected3] = useState(false);
-
   const nextQuestion = () => {
-    if (select || select1 || select2 || select3 !== false) {
-      navigation.navigate('Profile');
-    } else {
-      alert('Please choose option');
-    }
+    navigation.navigate('Profile');
   };
-
-  const answers = [
+  const datas = [
     {
-      id: 1,
-      label: 'John',
-      checked: select,
-
-      set: () => {
-        setSelected((prev) => !prev);
-        setSelected1(false);
-        setSelected2(false);
-        setSelected3(false);
-      },
+      answer: 'Peter',
     },
     {
-      id: 2,
-      label: 'Mathew',
-      checked: select1,
-      set: () => {
-        setSelected1((prev) => !prev);
-        setSelected(false);
-        setSelected2(false);
-        setSelected3(false);
-      },
+      answer: 'Peter',
     },
     {
-      id: 3,
-      label: 'Luke',
-      checked: select2,
-      set: () => {
-        setSelected2((prev) => !prev);
-        setSelected1(false);
-        setSelected(false);
-        setSelected3(false);
-      },
+      answer: 'Peter',
     },
     {
-      id: 4,
-      label: 'Michael',
-      checked: select3,
-      set: () => {
-        setSelected3((prev) => !prev);
-        setSelected1(false);
-        setSelected2(false);
-        setSelected(false);
-      },
+      answer: 'Peter',
     },
   ];
 
@@ -89,18 +46,15 @@ const Questionaire = ({navigation}) => {
   return (
     <View flex={1} style={{backgroundColor: '#fff'}}>
       <View style={styles.container}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        <View marginBottom={10}>
           <Text style={styles.text}>
             To help you better, complete this set of Quiz
           </Text>
         </View>
-        <View marginTop={25}>
-          <Text style={[styles.text, {color: '#F2C94C'}]}>Question 3/12</Text>
-        </View>
+        <Text>
+          <Text style={[styles.text, {color: '#F2C94C'}]}>Question </Text>
+          <Text style={[styles.text, {color: '#F2C94C'}]}>3/12</Text>
+        </Text>
         <View marginTop={25}>
           <View
             backgroundColor="#E0E0E0"
@@ -124,14 +78,7 @@ const Questionaire = ({navigation}) => {
                 marginLeft: 25,
                 right: 25,
               }}>
-              {answers.map((answer) => (
-                <Answer
-                  key={answer.id}
-                  checked={answer.checked}
-                  onPress={answer.set}
-                  label={answer.label}
-                />
-              ))}
+              <Answer data={datas} />
             </View>
             <View
               style={{
