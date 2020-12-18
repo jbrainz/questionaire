@@ -7,6 +7,7 @@ import ForgotPassword from './Authentication/ForgotPassword';
 import ResetPassword from './Authentication/ResetPassword';
 
 import Questionaire from './Home';
+import Profile from './Home/Profile/Profile';
 
 const AuthStack = createStackNavigator();
 
@@ -25,6 +26,7 @@ export const Home = () => {
   return (
     <AuthStack.Navigator headerMode="none">
       <AuthStack.Screen name="Questionaire" component={Questionaire} />
+      <AuthStack.Screen name="Profile" component={Profile} />
     </AuthStack.Navigator>
   );
 };
