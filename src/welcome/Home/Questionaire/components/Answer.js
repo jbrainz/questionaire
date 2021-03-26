@@ -46,9 +46,8 @@ const styles = StyleSheet.create({
 const Answer = ({data}) => {
   const [active, setActive] = useState(-1);
 
-  const changeInitial = (item, index) => {
+  const changeInitial = (index) => {
     setActive(index);
-    console.log(item);
   };
 
   return (
